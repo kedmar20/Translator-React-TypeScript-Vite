@@ -1,4 +1,4 @@
-import { AppTheme } from '../types'
+import { AppTheme } from 'lib/types'
 
 export const theme: AppTheme = {
     colors: {
@@ -8,5 +8,8 @@ export const theme: AppTheme = {
         error: '#c44569',
         typography: '#c8d6e5',
         input: '#484748'
+    },
+    media: {
+        sm: 900
     }
 }

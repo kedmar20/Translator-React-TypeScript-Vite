@@ -12,7 +12,7 @@ export type Dictionary = {
         header: {
             title: string,
             github: string,
-            discord: string
+            linkedin: string
         },
         footer: {
             flatIcon: string,
