@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// import {useTranslations} from "../../lib/hooks";
 import {useTranslations} from "lib/hooks";
 
 type TranslatorScreenProps = {
@@ -26,6 +25,16 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
     )
 }
 
-const Container = styled.div`
-    color: ${({theme})=>theme.colors.typography}
-    `
+const TranslatorContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 50px;
+    @media(min-width: ${({ theme }) => theme.media.sm}px) {
+        justify-content: center;
+    }
+    @media(max-width: ${({ theme }) => theme.media.sm}px) {
+         flex-direction: column;
+         align-items: center;
+     }
+ `

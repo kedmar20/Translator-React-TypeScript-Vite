@@ -3,7 +3,7 @@ import { Dictionary } from "../types";
 export const en_GB: Dictionary = {
     common: {
         autoTranslate: 'Auto translate',
-        companyName: 'Codemask Academy',
+        companyName: 'Kedmar20',
     },
     components: {
         app: {
@@ -13,7 +13,7 @@ export const en_GB: Dictionary = {
         },
         header: {
             github: 'Github',
-            discord: 'Discord',
+            linkedin: 'Linked In',
             title: 'Translator ReactJS'
         },
         footer: {

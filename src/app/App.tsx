@@ -2,11 +2,14 @@ import React from "react";
 import styled, {ThemeProvider} from "styled-components";
 import { theme } from '../lib/styles'
 import {TranslatorScreen} from "../features/translator";
+import {Footer, Header} from "../lib/components";
 export const App = ()=> {
     return (
         <ThemeProvider theme={theme}>
             <AppContainer>
+                <Header />
                 <TranslatorScreen isActive={false} title={"Hello from App"} onClick={()=>{}} onClick2={()=>true}/>
+                <Footer/>
             </AppContainer>
         </ThemeProvider>
     )
