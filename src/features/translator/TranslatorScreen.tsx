@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {useTranslations} from "lib/hooks";
+import {TextInput} from "lib/components";
 
 type TranslatorScreenProps = {
     isActive:boolean,
@@ -16,11 +17,15 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
 
     return (
         <Container>
+        <TranslatorContainer>
+            <TextInput></TextInput>
+            <TextInput></TextInput>
             Hello from Translator!
             <p></p>
             {title}
             <p></p>
             {T.common.companyName}
+        </TranslatorContainer>
         </Container>
     )
 }
@@ -38,3 +43,9 @@ const TranslatorContainer = styled.div`
          align-items: center;
      }
  `
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    color: ${({ theme }) => theme.colors.typography}
+    `
