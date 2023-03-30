@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {useTranslations} from "lib/hooks";
-import {Loader, SelectLanguage, TextInput} from "lib/components";
+import {Loader, SelectLanguage, TextInput, Confidence} from "lib/components";
 
 type TranslatorScreenProps = {
     isActive:boolean,
@@ -24,6 +24,10 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                 <LoaderContainer>
                     <Loader/>
                 </LoaderContainer>
+                <InputFooter>
+                    <Confidence/>
+                    {/*<TextCounter/>*/}
+                </InputFooter>
             </InputContainer>
             <InputContainer>
                 <SelectLanguage/>
