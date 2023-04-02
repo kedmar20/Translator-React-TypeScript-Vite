@@ -2,12 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import {Images} from "../../assets";
 
-export const ExchangeLanguage = ()=>(
-    <ExchangeContainer>
-    <Exchange src={Images.Exchange}/>
-    </ExchangeContainer>
-)
-
 const ExchangeContainer = styled.div`
     width: 22px;
     height: 22px;
@@ -25,6 +19,12 @@ const ExchangeContainer = styled.div`
         flex-direction: row;
     }
 `
+
+export const ExchangeLanguage = ()=>(
+    <ExchangeContainer>
+    <Exchange src={Images.Exchange}/>
+    </ExchangeContainer>
+)
 
 const Exchange = styled.img`
     cursor: pointer;

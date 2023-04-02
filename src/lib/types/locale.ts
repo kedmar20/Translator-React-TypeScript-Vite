@@ -1,3 +1,5 @@
+
+
 export type Dictionary = {
     common: {
         autoTranslate: string,

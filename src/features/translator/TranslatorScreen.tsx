@@ -1,18 +1,50 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {useTranslations} from "lib/hooks";
-import {Loader, SelectLanguage, TextInput, Confidence, ExchangeLanguage} from "lib/components";
+import {Loader, SelectLanguage, TextInput, Confidence, ExchangeLanguage, TextCounter, Message} from "lib/components";
+import {useSupportedLanguages} from "./useSupportedLanguages";
+import {Language} from "lib/models";
 
-type TranslatorScreenProps = {
-    isActive:boolean,
-    age?:number,
-    title:string,
-    onClick(): void,
-    onClick2():boolean
+export const TranslatorScreen: React.FunctionComponent = ()=>{
+    const T = useTranslations();
+    const[languages, setLanguages]=useState<Array<Language>>([])
+    const {isLoading, hasError, fetch: getSupportedLanguages} = useSupportedLanguages(setLanguages);
+
+    useEffect(()=>{
+        getSupportedLanguages()
+    },[])
+
+if (isLoading) {
+    return(
+        <LoaderText>
+            <Loader/>
+            {T.components.app.loading}
+        </LoaderText>
+
+    )
 }
 
-export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = ({title})=>{
-    const T = useTranslations();
+if (hasError){
+    return(
+        <CenterContainer>
+            <Message
+                withButton
+                message={T.components.app.error}
+                onClick={()=>getSupportedLanguages()}
+            />
+        </CenterContainer>
+    )
+}
+
+if (languages.length ===0) {
+    return(
+        <CenterContainer>
+            <Message
+            message={T.components.app.empty}
+            />
+        </CenterContainer>
+    )
+}
 
 
     return (
@@ -26,11 +58,10 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                 </LoaderContainer>
                 <InputFooter>
                     <Confidence/>
-                    {/*<TextCounter/>*/}
+                    <TextCounter/>
                 </InputFooter>
             </InputContainer>
             <ExchangeLanguage
-
             />
             <InputContainer>
                 <SelectLanguage/>
@@ -39,11 +70,6 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                     <Loader/>
                 </LoaderContainer>
             </InputContainer>
-            Hello from Translator!
-            <p></p>
-            {title}
-            <p></p>
-            {T.common.companyName}
         </TranslatorContainer>
         </Container>
     )
@@ -83,3 +109,16 @@ const InputFooter = styled.div`
     flex-direction: row;
     justify-content: space-between;
 `
+const LoaderText = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: ${({ theme }) => theme.colors.typography};
+    gap: 5px;
+    padding: 0 100px;
+    `
+const CenterContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    `
