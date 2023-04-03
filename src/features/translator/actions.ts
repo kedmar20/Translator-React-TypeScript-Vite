@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import {Language} from "lib/models";
 import {APP_CONFIG} from "lib/config";
 
 export const useSupportedLanguages = (
+
     onSuccess: (languages:Array<Language>)=>void
 )=>{
     const[isLoading, setIsLoading]=useState<boolean>(false)
     const[hasError, setHasError]=useState<boolean>(false)
-
 
     return{
         isLoading,
@@ -15,9 +15,11 @@ export const useSupportedLanguages = (
         fetch: ()=>{
             setIsLoading(true)
             setHasError(false)
+    console.log(isLoading, hasError)
 
             fetch(`${APP_CONFIG.API_URL}/languages`)
                 .then(response=>{
+    console.log(response)
                     if (response.ok) {
                         return response
                     }
@@ -32,5 +34,5 @@ export const useSupportedLanguages = (
                     setIsLoading(false)
                 })
         }
-}
+    }
 }

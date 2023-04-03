@@ -1,50 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import {useTranslations} from "lib/hooks";
-import {Loader, SelectLanguage, TextInput, Confidence, ExchangeLanguage, TextCounter, Message} from "lib/components";
-import {useSupportedLanguages} from "./useSupportedLanguages";
+import {Loader, SelectLanguage, TextInput, Confidence, ExchangeLanguage, TextCounter} from "lib/components";
 import {Language} from "lib/models";
 
-export const TranslatorScreen: React.FunctionComponent = ()=>{
+type TranslatorScreenProps = {
+    languages: Array<Language>
+}
+export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = ({languages})=>{
     const T = useTranslations();
-    const[languages, setLanguages]=useState<Array<Language>>([])
-    const {isLoading, hasError, fetch: getSupportedLanguages} = useSupportedLanguages(setLanguages);
-
-    useEffect(()=>{
-        getSupportedLanguages()
-    },[])
-
-if (isLoading) {
-    return(
-        <LoaderText>
-            <Loader/>
-            {T.components.app.loading}
-        </LoaderText>
-
-    )
-}
-
-if (hasError){
-    return(
-        <CenterContainer>
-            <Message
-                withButton
-                message={T.components.app.error}
-                onClick={()=>getSupportedLanguages()}
-            />
-        </CenterContainer>
-    )
-}
-
-if (languages.length ===0) {
-    return(
-        <CenterContainer>
-            <Message
-            message={T.components.app.empty}
-            />
-        </CenterContainer>
-    )
-}
 
 
     return (
@@ -109,16 +73,3 @@ const InputFooter = styled.div`
     flex-direction: row;
     justify-content: space-between;
 `
-const LoaderText = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: ${({ theme }) => theme.colors.typography};
-    gap: 5px;
-    padding: 0 100px;
-    `
-const CenterContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    `
