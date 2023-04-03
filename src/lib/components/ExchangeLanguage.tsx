@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import {Images} from "../../assets";
 
+type ExchangeLanguageProps = {
+    onClick(): void
+}
+
 const ExchangeContainer = styled.div`
     width: 22px;
     height: 22px;
@@ -20,9 +24,9 @@ const ExchangeContainer = styled.div`
     }
 `
 
-export const ExchangeLanguage = ()=>(
+export const ExchangeLanguage: React.FunctionComponent<ExchangeLanguageProps> = ({onClick})=>(
     <ExchangeContainer>
-    <Exchange src={Images.Exchange}/>
+    <Exchange src={Images.Exchange} onClick={onClick}/>
     </ExchangeContainer>
 )
 

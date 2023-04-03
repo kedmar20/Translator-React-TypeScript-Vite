@@ -17,7 +17,6 @@ export const App = ()=> {
     useEffect(()=>{getSupportedLanguages()},[])
 
     const getLayout = () => {
-    console.log(languages, isLoading, hasError, languages.length)
     if (isLoading) {
         return(
             <LoaderText>

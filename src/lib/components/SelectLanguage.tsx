@@ -1,17 +1,29 @@
 import React from "react"
 import styled from 'styled-components'
-export const SelectLanguage = ()=>(
-    <SelectContainer>
-        <Select>
-            <Option>
-                Polish
-            </Option
-            ><Option>
-                English
-            </Option>
-        </Select>
-    </SelectContainer>
-)
+import {Language, LanguageCode} from "lib/models";
+
+type SelectLanguageProps = {
+    languages: Array<Language>,
+    selectedLanguage: LanguageCode,
+    exclude:Array<LanguageCode>,
+    onChange(newLanguage:LanguageCode):void
+}
+
+export const SelectLanguage: React.FunctionComponent<SelectLanguageProps> = ({ languages, selectedLanguage, exclude,onChange})=>{
+
+    return (
+        <SelectContainer>
+            <Select value={selectedLanguage}
+                    onChange={event => onChange(event.target.value as LanguageCode)}>
+                {languages.map(langu=>(
+                    <Option key={langu.code} value={langu.code}>
+                        {langu.name}
+                    </Option>
+                ))}
+            </Select>
+        </SelectContainer>
+    )
+}
 
 const SelectContainer = styled.div`
     height: 26px;
