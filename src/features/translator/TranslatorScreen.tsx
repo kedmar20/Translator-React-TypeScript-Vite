@@ -1,21 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {useTranslations} from "lib/hooks";
 import {Loader, SelectLanguage, TextInput, Confidence, ExchangeLanguage, TextCounter} from "lib/components";
-import {Language} from "lib/models";
+import {Language, LanguageCode} from "lib/models";
+import {SelectedLanguages} from "./types";
 
 type TranslatorScreenProps = {
     languages: Array<Language>
 }
 export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = ({languages})=>{
     const T = useTranslations();
-
+    const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({source: LanguageCode.German, target: LanguageCode.English});
 
     return (
         <Container>
         <TranslatorContainer>
             <InputContainer>
-                <SelectLanguage/>
+                <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.source} exclude={[selectedLanguages.target]} onChange={newCode=>setSelectedLanguages(prevState=>({
+                    ...prevState, source: newCode}))} />
                 <TextInput></TextInput>
                 <LoaderContainer>
                     <Loader/>
@@ -26,9 +28,11 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                 </InputFooter>
             </InputContainer>
             <ExchangeLanguage
-            />
+             onClick={()=>setSelectedLanguages(prevState=>({
+                 source: prevState.target, target: prevState.source}))}/>
             <InputContainer>
-                <SelectLanguage/>
+                <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.target} exclude={[selectedLanguages.source]} onChange={newCode=>setSelectedLanguages(prevState=>({
+                    ...prevState, target: newCode}))} />
                 <TextInput></TextInput>
                 <LoaderContainer>
                     <Loader/>
