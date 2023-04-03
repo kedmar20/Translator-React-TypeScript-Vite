@@ -1,10 +1,31 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 
+type TextInputProps = {
+    autoFocus?:boolean
+    onChangeText?(text: string): void
+    value?:string
+}
 
-export const TextInput = ()=>(
-    <Input placeholder= "write something..."/>
-)
+export const TextInput: React.FunctionComponent<TextInputProps> = ({autoFocus, onChangeText, value})=>{
+    const inputRef = React.createRef<HTMLTextAreaElement>()
+
+    useEffect(()=>{
+     if(autoFocus && inputRef.current){
+           inputRef.current.focus()
+    }
+    },[])
+
+    return(
+        <Input ref={inputRef} placeholder= "write something..."
+        onChange={event=>{
+            if (onChangeText) {
+                onChangeText(event.target.value)
+            }
+        }}
+        />
+    )
+}
 
 
 const Input = styled.textarea`

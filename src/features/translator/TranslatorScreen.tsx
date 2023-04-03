@@ -11,6 +11,7 @@ type TranslatorScreenProps = {
 export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = ({languages})=>{
     const T = useTranslations();
     const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({source: LanguageCode.German, target: LanguageCode.English});
+    const[textValue, setTextValue]=useState<string>('')
 
     return (
         <Container>
@@ -18,7 +19,7 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
             <InputContainer>
                 <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.source} exclude={[selectedLanguages.target]} onChange={newCode=>setSelectedLanguages(prevState=>({
                     ...prevState, source: newCode}))} />
-                <TextInput></TextInput>
+                <TextInput autoFocus value={textValue} onChangeText={setTextValue}/>
                 <LoaderContainer>
                     <Loader/>
                 </LoaderContainer>
