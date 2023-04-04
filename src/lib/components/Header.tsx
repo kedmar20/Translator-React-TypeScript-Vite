@@ -51,7 +51,7 @@ const LogoContainer = styled.div`
 const Logo = styled.img`
     width: 160px;
     //height: 36px;
-    margin-right: 10px;
+    margin-right: 15vw;
 `
 
 const Title = styled.h1`

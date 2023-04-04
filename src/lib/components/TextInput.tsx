@@ -11,9 +11,10 @@ type TextInputProps = {
     value?:string
     hasError?:boolean
     onChange?(): void
+    toTranslate: boolean
 }
 
-export const TextInput: React.FunctionComponent<TextInputProps> = ({autoFocus, onChangeText, value, hasError})=>{
+export const TextInput: React.FunctionComponent<TextInputProps> = ({autoFocus, onChangeText, value, hasError,toTranslate})=>{
     const inputRef = React.createRef<HTMLTextAreaElement>()
 
     useEffect(()=>{
@@ -23,7 +24,7 @@ export const TextInput: React.FunctionComponent<TextInputProps> = ({autoFocus, o
     },[])
 
     return(
-        <Input ref={inputRef} placeholder= "write something..."
+        <Input ref={inputRef} placeholder={(!toTranslate ? "write something...":"")}
                value={value}
         onChange={event=>{
             if (onChangeText) {
