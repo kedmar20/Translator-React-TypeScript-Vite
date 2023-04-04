@@ -14,7 +14,7 @@ export const en_GB: Dictionary = {
         header: {
             github: 'Github',
             linkedin: 'Linked In',
-            title: 'Translator ReactJS'
+            title: 'Translator ReactJS + TypeScript with Docker'
         },
         footer: {
             flatIcon: 'FlatIcon',

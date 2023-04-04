@@ -16,6 +16,7 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
     const[translatedText, setTranslatedText]=useState<string>('')
     const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({source: LanguageCode.German, target: LanguageCode.English});
     const[textValue, setTextValue]=useState<string>('')
+    const[toTranslate, setToTranslate]=useState<boolean>(true)
 
     const setAllStates = ()=>{
         setSelectedLanguages(prevState=>({source: prevState.target, target: prevState.source}))
@@ -34,7 +35,7 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
             <InputContainer>
                 <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.source} exclude={[selectedLanguages.target]} onChange={newCode=>(setSelectedLanguages(prevState=>({
                     ...prevState, source: newCode})), translateText(textValue, selectedLanguages))} />
-                <TextInput autoFocus value={textValue} onChangeText={newQuery => {
+                <TextInput toTranslate={false} autoFocus value={textValue} onChangeText={newQuery => {
                     if (newQuery.length > APP_CONFIG.TEXT_INPUT_LIMIT || newQuery.length === 0) {
                         return setTranslatedText(""), setTextValue("")}
                     setTextValue(newQuery),
@@ -51,7 +52,7 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
             <InputContainer>
                 <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.target} exclude={[selectedLanguages.source]} onChange={newCode=>(setSelectedLanguages(prevState=>({
                     ...prevState, target: newCode})), translateText(textValue, {...selectedLanguages, target: newCode}))} />
-                <TextInput value={translatedText} hasError={hasErrorTranslatingText }></TextInput>
+                <TextInput toTranslate value={translatedText} hasError={hasErrorTranslatingText }></TextInput>
                 <LoaderContainer>
                     {isTranslatingText && (<Loader/>)}
                 </LoaderContainer>
