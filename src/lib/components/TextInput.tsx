@@ -10,6 +10,7 @@ type TextInputProps = {
     onChangeText?(text: string): void
     value?:string
     hasError?:boolean
+    onChange?(): void
 }
 
 export const TextInput: React.FunctionComponent<TextInputProps> = ({autoFocus, onChangeText, value, hasError})=>{
@@ -23,6 +24,7 @@ export const TextInput: React.FunctionComponent<TextInputProps> = ({autoFocus, o
 
     return(
         <Input ref={inputRef} placeholder= "write something..."
+               value={value}
         onChange={event=>{
             if (onChangeText) {
                 onChangeText(event.target.value)
