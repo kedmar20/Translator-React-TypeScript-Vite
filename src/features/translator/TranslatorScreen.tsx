@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {useTranslations} from "lib/hooks";
-import {Loader, SelectLanguage, TextInput, Confidence, ExchangeLanguage, TextCounter} from "lib/components";
+import {Loader, SelectLanguage, TextInput, ExchangeLanguage, TextCounter} from "lib/components";
 import {Language, LanguageCode} from "lib/models";
 import {SelectedLanguages} from "./types";
 import {APP_CONFIG} from "../../lib/config";
-import {useTranslateText} from "./actions";
+import {useSupportedLanguages, useTranslateText} from "./actions";
 
 type TranslatorScreenProps = {
     languages: Array<Language>
+    // onClick(): void
 }
 export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = ({languages})=>{
     const T = useTranslations();
@@ -16,6 +17,11 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
     const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({source: LanguageCode.German, target: LanguageCode.English});
     const[textValue, setTextValue]=useState<string>('')
 
+    const setAllStates = ()=>{
+        setSelectedLanguages(prevState=>({source: prevState.target, target: prevState.source}))
+            setTranslatedText(textValue)
+            setTextValue(translatedText)
+};
     const {
         isLoading: isTranslatingText,
         hasError: hasErrorTranslatingText,
@@ -26,30 +32,25 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
         <Container>
         <TranslatorContainer>
             <InputContainer>
-                <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.source} exclude={[selectedLanguages.target]} onChange={newCode=>setSelectedLanguages(prevState=>({
-                    ...prevState, source: newCode}))} />
+                <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.source} exclude={[selectedLanguages.target]} onChange={newCode=>(setSelectedLanguages(prevState=>({
+                    ...prevState, source: newCode})), translateText(textValue, selectedLanguages))} />
                 <TextInput autoFocus value={textValue} onChangeText={newQuery => {
-                    if (newQuery.length > APP_CONFIG.TEXT_INPUT_LIMIT) {
-                        return
-                    } setTextValue(newQuery)}}/>
-
-                <LoaderContainer>
-                    <Loader/>
-                </LoaderContainer>
+                    if (newQuery.length > APP_CONFIG.TEXT_INPUT_LIMIT || newQuery.length === 0) {
+                        return setTranslatedText(""), setTextValue("")}
+                    setTextValue(newQuery),
+                    translateText(newQuery,selectedLanguages)
+                }} ></TextInput>
                 <InputFooter>
-                    <Confidence/>
                     <TextCounter
                         counter={textValue.length}
-                        limit={APP_CONFIG.TEXT_INPUT_LIMIT}
-                    />
+                        limit={APP_CONFIG.TEXT_INPUT_LIMIT}/>
                 </InputFooter>
             </InputContainer>
             <ExchangeLanguage
-             onClick={()=>setSelectedLanguages(prevState=>({
-                 source: prevState.target, target: prevState.source}))}/>
+             onClick={()=>setAllStates()}/>
             <InputContainer>
-                <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.target} exclude={[selectedLanguages.source]} onChange={newCode=>setSelectedLanguages(prevState=>({
-                    ...prevState, target: newCode}))} />
+                <SelectLanguage languages={languages} selectedLanguage={selectedLanguages.target} exclude={[selectedLanguages.source]} onChange={newCode=>(setSelectedLanguages(prevState=>({
+                    ...prevState, target: newCode})), translateText(textValue, {...selectedLanguages, target: newCode}))} />
                 <TextInput value={translatedText} hasError={hasErrorTranslatingText }></TextInput>
                 <LoaderContainer>
                     {isTranslatingText && (<Loader/>)}
@@ -83,12 +84,10 @@ const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
 `
-
 const LoaderContainer = styled.div`
     padding: 5px 10px;
     height: 2px;
 `
-
 const InputFooter = styled.div`
     display: flex;
     flex-direction: row;

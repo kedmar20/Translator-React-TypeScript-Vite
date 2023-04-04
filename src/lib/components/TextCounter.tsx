@@ -16,5 +16,6 @@ export const TextCounter: React.FunctionComponent<TextCounterProps> = ({
 )
 
 const Counter = styled.div`
-    color: ${({ theme }) => theme.colors.typography}
+    color: ${({ theme }) => theme.colors.typography};
+    margin-top: 5px;
 `

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {Images} from "../../assets";
 
 type ExchangeLanguageProps = {
-    onClick(): void
+    onClick(): any
 }
 
 const ExchangeContainer = styled.div`
