@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --config vite.dev.config.ts",
     "build": "tsc && vite build --config vite.prod.config.ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+      "start": "vite preview"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.26",
