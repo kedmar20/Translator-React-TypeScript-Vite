@@ -1,13 +1,14 @@
 # Translator-React-TypeScript-Vite
-SPA Translator with React and TypeScript - bundling by Vite
+## SPA Translator with React and TypeScript - bundling by Vite
 
-Dictionary, Translator, Signs Counter
-Loader component: Animacja loadera z keyframes
+## deployment on Railway:
+## https://translator-react-typescript-vite-production.up.railway.app/
 
-React + TypeScript SPA
-Backend: LibreTranslate Docker API
+<br>
+<br>
 
-Vite
-Styled-Components
-
-Webstorm
+-  **Dictionary, Translator, Signs Counter**
+-  **Loader component: animation loader with keyframes**
+-  **Backend: LibreTranslate Docker API**
+<br>
+Vite, Styled-Components, Webstorm
